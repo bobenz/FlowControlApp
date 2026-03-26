@@ -1,5 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include "flowconsole.h"
+#include "monitoritem.h"
 
 int main(int argc, char *argv[])
 {
@@ -7,9 +9,10 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QGuiApplication app(argc, argv);
-
+    fc_init();
+    qmlRegisterType<MonitorItem>("DebugConsole", 1, 0, "MonitorItem");
     QQmlApplicationEngine engine;
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    const QUrl url(QStringLiteral("qrc:/main/main.qml"));
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreated,
