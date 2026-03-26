@@ -2,7 +2,7 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import FlowGraph 1.0
 import "qrc:/"
-
+import "qrc:/debugconsole"
 
 Window
 {
@@ -20,50 +20,24 @@ Window
 
          anchors.fill:parent
          openbutton:true
+         qrcFlows:["C:\dev\qxfsengine\flows\flows.qrc"]
+         // Loader {
+         //     objectName: "Debug Monitor"
+         //     source: "qrc:/debugconsole/Monitor.qml"
+         // }
 
-         Loader {
-             objectName: "Debug Monitor"
-             source: "qrc:/debugconsole/Monitor.qml"
-         }
+       Monitor
+       {
+           property bool cdm_cmd:true
+           property bool cdm_result:true
+           property bool ptr_cmd:true
+           property bool ptr_result:true
+           property bool idc_cmd:true
+           property bool idc_result:true
+           property bool pin_cmd:true
+           property bool pin_result:true
+       }
 
-         flow:Flow
-         {
-
-         id: root
-            SequenceBase
-            {
-                id:s1
-                run: root.run
-
-                onEnter:
-                {
-                    console.log("s1 started")
-                    wait(()=>false, 5000)
-                    console.log("s1 finished");
-                }
-
-            }
-
-            Sequence
-            {
-                id:s2
-               run: root.run
-
-                onEnter:
-                {
-                    console.log("s2 started")
-                    wait(()=>false, 4000)
-                    console.log("s2 finished");
-                }
-
-            }
-         }
-
-
-    Rectangle
-    {
-             color:"red"
-    }
 
 
     }
